@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Daily Operations Report</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+}
+
+/* INPUT PANEL */
+
+.input-panel {
+    max-width: 1100px;
+    margin: 0 auto 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.input-panel h2 {
+    margin-top: 0;
+    font-size: 28px;
+    border-bottom: 2px solid #222;
+    padding-bottom: 12px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 7px;
+    font-size: 15px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 11px;
+    font-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.button-area {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+}
+
+button {
+    padding: 13px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.generate-btn {
+    background: #111;
+    color: white;
+}
+
+.print-btn {
+    background: #ddd;
+    color: #111;
+}
+
+
+/* REPORT */
+
+.report-page {
+    width: 100%;
+    max-width: 1050px;
+    min-height: 1400px;
+    margin: 0 auto;
+    padding: 28px 56px 45px 56px;
+    border: 2px solid #222;
+    background: white;
+}
+
+.report-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 45px 0;
+}
+
+.date {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 52px;
+}
+
+.section {
+    margin-bottom: 45px;
+}
+
+.section-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 18px 0;
+}
+
+.line {
+    font-size: 28px;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.label {
+    font-weight: 700;
+}
+
+.separator {
+    padding: 0 12px;
+}
+
+.remarks-text {
+    font-size: 27px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+
+/* PRINT */
+
+@media print {
+
+    body {
+        padding: 0;
+        background: white;
+    }
+
+    .input-panel {
+        display: none;
+    }
+
+    .report-page {
+        max-width: none;
+        width: 100%;
+        min-height: 100vh;
+        border: 2px solid #222;
+        margin: 0;
+    }
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    .report-page {
+        padding: 25px;
+    }
+
+    .report-title {
+        font-size: 34px;
+    }
+
+    .date,
+    .section-title {
+        font-size: 24px;
+    }
+
+    .line {
+        font-size: 21px;
+    }
+
+    .remarks-text {
+        font-size: 20px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= INPUT FORM ================= -->
+
+<div class="input-panel">
+
+<h2>Daily Operations Report – Data Entry</h2>
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="date" value="2026-07-10">
+    </div>
+
+    <div class="form-group">
+        <label>Planning Date</label>
+        <input type="date" id="planningDate" value="2026-07-10">
+    </div>
+
+
+    <div class="form-group">
+        <label>Production</label>
+        <input type="text" id="production"
+               value="compressors not available">
+    </div>
+
+    <div class="form-group">
+        <label>Production MTD</label>
+        <input type="text" id="productionMTD"
+               value="25442 MT">
+    </div>
+
+
+    <div class="form-group">
+        <label>Compressors</label>
+        <input type="text" id="compressors" value="8 Nos">
+    </div>
+
+    <div class="form-group">
+        <label>Holes</label>
+        <input type="text" id="holes" value="480">
+    </div>
+
+
+    <div class="form-group">
+        <label>Feetage</label>
+        <input type="text" id="feetage" value="2640">
+    </div>
+
+    <div class="form-group">
+        <label>Boulder Dispatch FTD</label>
+        <input type="text" id="boulderFTD"
+               value="2,362 MT">
+    </div>
+
+
+    <div class="form-group">
+        <label>Boulder Dispatch MTD</label>
+        <input type="text" id="boulderMTD"
+               value="15,057 MT">
+    </div>
+
+    <div class="form-group">
+        <label>Plant Production FTD Trips</label>
+        <input type="text" id="plantTrips"
+               value="59">
+    </div>
+
+
+    <div class="form-group">
+        <label>Plant Production FTD MT</label>
+        <input type="text" id="plantFTD"
+               value="1731 MT">
+    </div>
+
+    <div class="form-group">
+        <label>Plant Production MTD</label>
+        <input type="text" id="plantMTD"
+               value="14,999 MT">
+    </div>
+
+
+    <div class="form-group">
+        <label>TPH</label>
+        <input type="text" id="tph" value="180">
+    </div>
+
+    <div class="form-group">
+        <label>Dispatch FTD</label>
+        <input type="text" id="dispatchFTD"
+               value="1,084 MT">
+    </div>
+
+
+    <div class="form-group">
+        <label>Dispatch MTD</label>
+        <input type="text" id="dispatchMTD"
+               value="10,711 MT">
+    </div>
+
+    <div class="form-group">
+        <label>Basic Revenue FTD</label>
+        <input type="text" id="basicFTD"
+               value="4.5 L">
+    </div>
+
+
+    <div class="form-group">
+        <label>Basic Revenue MTD</label>
+        <input type="text" id="basicMTD"
+               value="47 L">
+    </div>
+
+    <div class="form-group">
+        <label>Total Revenue FTD</label>
+        <input type="text" id="totalFTD"
+               value="8.3 L">
+    </div>
+
+
+    <div class="form-group">
+        <label>Total Revenue MTD</label>
+        <input type="text" id="totalMTD"
+               value="83.6 L">
+    </div>
+
+
+    <div class="form-group full-width">
+        <label>Remarks</label>
+
+        <textarea id="remarks">Dispatch less due to dispatch movement road via Martur is currently under construction for CC road. Boulder dispatch quantity and plant production less due to shortage of diesel and powercut (10 Hrs).</textarea>
+
+    </div>
+
+</div>
+
+
+<div class="button-area">
+
+    <button class="generate-btn"
+            onclick="generateReport()">
+        Generate Report
+    </button>
+
+    <button class="print-btn"
+            onclick="window.print()">
+        Print / Save PDF
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- ================= REPORT ================= -->
+
+<div class="report-page">
+
+<h1 class="report-title">
+    Daily Operations Report
+</h1>
+
+
+<div class="date">
+    Date: <span id="rDate"></span>
+</div>
+
+
+<!-- MINE OPERATIONS -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Mine Operations:
+</h2>
+
+<p class="line">
+    <span class="label">Production:</span>
+    <span id="rProduction"></span>
+</p>
+
+<p class="line">
+    <span class="label">Production MTD:</span>
+    <span id="rProductionMTD"></span>
+</p>
+
+</div>
+
+
+<!-- PLANNING -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Today Planning (<span id="rPlanningDate"></span>):
+</h2>
+
+<p class="line">
+    <span class="label">Compressors:</span>
+    <span id="rCompressors"></span>
+</p>
+
+<p class="line">
+    <span class="label">Holes:</span>
+    <span id="rHoles"></span>
+</p>
+
+<p class="line">
+    <span class="label">Feetage:</span>
+    <span id="rFeetage"></span>
+</p>
+
+</div>
+
+
+<!-- BOULDER -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Boulders Dispatch:
+</h2>
+
+<p class="line">
+
+<span class="label">FTD:</span>
+<span id="rBoulderFTD"></span>
+
+<span class="separator">|</span>
+
+<span class="label">MTD:</span>
+<span id="rBoulderMTD"></span>
+
+</p>
+
+</div>
+
+
+<!-- PLANT -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Plant Production:
+</h2>
+
+<p class="line">
+
+<span class="label">FTD:</span>
+
+Trips:
+<span id="rPlantTrips"></span>
+
+<span class="separator">•</span>
+
+<span id="rPlantFTD"></span>
+
+</p>
+
+
+<p class="line">
+
+<span class="label">MTD:</span>
+<span id="rPlantMTD"></span>
+
+<span class="separator">•</span>
+
+<span class="label">TPH:</span>
+<span id="rTPH"></span>
+
+</p>
+
+</div>
+
+
+<!-- DISPATCH -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Dispatch Qty:
+</h2>
+
+<p class="line">
+
+<span class="label">FTD:</span>
+<span id="rDispatchFTD"></span>
+
+<span class="separator">|</span>
+
+<span class="label">MTD:</span>
+<span id="rDispatchMTD"></span>
+
+</p>
+
+</div>
+
+
+<!-- REVENUE -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Revenue:
+</h2>
+
+<p class="line">
+
+<span class="label">Basic:</span>
+
+FTD
+<span id="rBasicFTD"></span>
+
+<span class="separator">|</span>
+
+MTD
+<span id="rBasicMTD"></span>
+
+</p>
+
+
+<p class="line">
+
+<span class="label">Total:</span>
+
+FTD
+<span id="rTotalFTD"></span>
+
+<span class="separator">|</span>
+
+MTD
+<span id="rTotalMTD"></span>
+
+</p>
+
+</div>
+
+
+<!-- REMARKS -->
+
+<div class="section">
+
+<h2 class="section-title">
+    Remarks:
+</h2>
+
+<p class="remarks-text"
+   id="rRemarks">
+</p>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+function getValue(id) {
+    return document.getElementById(id).value;
+}
+
+
+function formatDate(dateString) {
+
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+
+    const month = String(date.getMonth() + 1)
+        .padStart(2, '0');
+
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
+
+function generateReport() {
+
+    document.getElementById("rDate").innerText =
+        formatDate(getValue("date"));
+
+    document.getElementById("rPlanningDate").innerText =
+        formatDate(getValue("planningDate"));
+
+    document.getElementById("rProduction").innerText =
+        getValue("production");
+
+    document.getElementById("rProductionMTD").innerText =
+        getValue("productionMTD");
+
+    document.getElementById("rCompressors").innerText =
+        getValue("compressors");
+
+    document.getElementById("rHoles").innerText =
+        getValue("holes");
+
+    document.getElementById("rFeetage").innerText =
+        getValue("feetage");
+
+    document.getElementById("rBoulderFTD").innerText =
+        getValue("boulderFTD");
+
+    document.getElementById("rBoulderMTD").innerText =
+        getValue("boulderMTD");
+
+    document.getElementById("rPlantTrips").innerText =
+        getValue("plantTrips");
+
+    document.getElementById("rPlantFTD").innerText =
+        getValue("plantFTD");
+
+    document.getElementById("rPlantMTD").innerText =
+        getValue("plantMTD");
+
+    document.getElementById("rTPH").innerText =
+        getValue("tph");
+
+    document.getElementById("rDispatchFTD").innerText =
+        getValue("dispatchFTD");
+
+    document.getElementById("rDispatchMTD").innerText =
+        getValue("dispatchMTD");
+
+    document.getElementById("rBasicFTD").innerText =
+        getValue("basicFTD");
+
+    document.getElementById("rBasicMTD").innerText =
+        getValue("basicMTD");
+
+    document.getElementById("rTotalFTD").innerText =
+        getValue("totalFTD");
+
+    document.getElementById("rTotalMTD").innerText =
+        getValue("totalMTD");
+
+    document.getElementById("rRemarks").innerText =
+        getValue("remarks");
+
+}
+
+
+// Generate report automatically when page opens
+
+window.onload = function() {
+    generateReport();
+};
+
+</script>
+
+
+</body>
+</html>
