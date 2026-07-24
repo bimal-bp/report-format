@@ -1,677 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Daily Operations Report</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 20px;
-    background: #f2f2f2;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #111;
-}
-
-/* INPUT PANEL */
-
-.input-panel {
-    max-width: 1100px;
-    margin: 0 auto 30px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-}
-
-.input-panel h2 {
-    margin-top: 0;
-    font-size: 28px;
-    border-bottom: 2px solid #222;
-    padding-bottom: 12px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px 25px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 7px;
-    font-size: 15px;
-}
-
-.form-group input,
-.form-group textarea {
-    padding: 11px;
-    font-size: 16px;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-}
-
-.form-group textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-.full-width {
-    grid-column: span 2;
-}
-
-.button-area {
-    margin-top: 25px;
-    display: flex;
-    gap: 12px;
-}
-
-button {
-    padding: 13px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.generate-btn {
-    background: #111;
-    color: white;
-}
-
-.print-btn {
-    background: #ddd;
-    color: #111;
-}
-
-
-/* REPORT */
-
-.report-page {
-    width: 100%;
-    max-width: 1050px;
-    min-height: 1400px;
-    margin: 0 auto;
-    padding: 28px 56px 45px 56px;
-    border: 2px solid #222;
-    background: white;
-}
-
-.report-title {
-    text-align: center;
-    font-size: 48px;
-    font-weight: 700;
-    margin: 0 0 45px 0;
-}
-
-.date {
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 52px;
-}
-
-.section {
-    margin-bottom: 45px;
-}
-
-.section-title {
-    font-size: 30px;
-    font-weight: 700;
-    margin: 0 0 18px 0;
-}
-
-.line {
-    font-size: 28px;
-    line-height: 1.55;
-    margin: 0;
-}
-
-.label {
-    font-weight: 700;
-}
-
-.separator {
-    padding: 0 12px;
-}
-
-.remarks-text {
-    font-size: 27px;
-    line-height: 1.45;
-    margin: 0;
-}
-
-
-/* PRINT */
-
-@media print {
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Daily Ops · WhatsApp Report Builder</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
     body {
-        padding: 0;
-        background: white;
+      background: #e9eef4;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .app-container {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      justify-content: center;
     }
 
-    .input-panel {
-        display: none;
+    /* ---- FORM CARD ---- */
+    .form-card {
+      flex: 1 1 440px;
+      background: white;
+      border-radius: 28px;
+      padding: 24px 22px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+      height: fit-content;
+    }
+    .form-card h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0b2a3b;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-card h2 i {
+      color: #2a7f6e;
+    }
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-group label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: #1f4157;
+      margin-bottom: 3px;
+      letter-spacing: -0.2px;
+      opacity: 0.8;
+    }
+    .field-group input, 
+    .field-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d3dee9;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      background: #fafcff;
+      transition: 0.2s;
+    }
+    .field-group input:focus, 
+    .field-group textarea:focus {
+      border-color: #2a7f6e;
+      outline: none;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(42,127,110,0.1);
+    }
+    .field-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .btn-generate {
+      background: #1d4b5e;
+      color: white;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+      margin-top: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-generate:hover {
+      background: #0f3a4a;
+      transform: scale(0.98);
+    }
+    .btn-generate i {
+      font-size: 1.1rem;
     }
 
-    .report-page {
-        max-width: none;
-        width: 100%;
-        min-height: 100vh;
-        border: 2px solid #222;
-        margin: 0;
+    /* ---- PREVIEW CARD (WHATSAPP STYLE) ---- */
+    .preview-card {
+      flex: 1 1 440px;
+      background: #f0f4fa;
+      border-radius: 28px;
+      padding: 18px 16px 20px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+      height: fit-content;
+    }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .preview-header span {
+      font-weight: 600;
+      color: #1a3a4a;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview-header span i {
+      color: #25D366;
+    }
+    .preview-header small {
+      background: #d3dee9;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #1f4157;
+    }
+    .whatsapp-msg {
+      background: white;
+      border-radius: 22px;
+      padding: 20px 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid #e2e9f2;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #1d2f3d;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 620px;
+      overflow-y: auto;
+    }
+    .whatsapp-msg strong {
+      color: #003153;
+    }
+    .whatsapp-msg .highlight {
+      background: #f3f9ff;
+      padding: 1px 6px;
+      border-radius: 12px;
+    }
+    .copy-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      width: 100%;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .copy-btn:hover {
+      background: #1da85c;
+    }
+    .copy-btn.copied {
+      background: #2a7f6e;
+    }
+    .footer-hint {
+      text-align: right;
+      font-size: 0.7rem;
+      color: #7d97ad;
+      margin-top: 10px;
     }
 
-}
-
-
-/* MOBILE */
-
-@media(max-width:700px) {
-
-    .form-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 700px) {
+      .app-container { flex-direction: column; align-items: center; }
+      .form-card, .preview-card { flex: 1 1 100%; }
+      .row2 { grid-template-columns: 1fr; }
     }
-
-    .full-width {
-        grid-column: span 1;
-    }
-
-    .report-page {
-        padding: 25px;
-    }
-
-    .report-title {
-        font-size: 34px;
-    }
-
-    .date,
-    .section-title {
-        font-size: 24px;
-    }
-
-    .line {
-        font-size: 21px;
-    }
-
-    .remarks-text {
-        font-size: 20px;
-    }
-
-}
-
-</style>
+  </style>
 </head>
-
-
 <body>
+<div class="app-container">
 
+  <!-- ========== FORM ========== -->
+  <div class="form-card">
+    <h2><i class="fas fa-pen-fancy"></i> Daily Report Editor</h2>
+    <form id="reportForm">
+      <!-- hidden fixed values but editable -->
+      <div class="field-group">
+        <label><i class="far fa-calendar-alt"></i> Date</label>
+        <input type="text" id="dateInput" value="23-07-2026" />
+      </div>
+      <div class="field-group">
+        <label><i class="fas fa-hard-hat"></i> Greeting / Subject</label>
+        <input type="text" id="greetingInput" value="Good Morning Sir" />
+      </div>
 
-<!-- ================= INPUT FORM ================= -->
+      <!-- Mine Ops: compressors, holes, feetage, production FTD, production MTD -->
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-oil-can"></i> Compressors</label>
+          <input type="text" id="compressors" value="10" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-bolt"></i> Holes</label>
+          <input type="text" id="holes" value="713" />
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-ruler"></i> Feetage</label>
+          <input type="text" id="feetage" value="3891" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-weight-hanging"></i> Production FTD</label>
+          <input type="text" id="prodFtd" value="3113 MT" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label><i class="fas fa-chart-line"></i> Production MTD</label>
+        <input type="text" id="prodMtd" value="20096 MT" />
+      </div>
 
-<div class="input-panel">
+      <!-- Today planning (next day) -->
+      <div class="field-group">
+        <label><i class="fas fa-clipboard-list"></i> Today Planning (next day)</label>
+        <input type="text" id="todayPlan" value="Compressors : 08 Nos · Holes : 480 · Feetage : 2600" />
+      </div>
 
-<h2>Daily Operations Report – Data Entry</h2>
+      <!-- Boulders Dispatch -->
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-truck-loading"></i> Boulders Trips</label>
+          <input type="text" id="boulderTrips" value="59" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-weight-hanging"></i> Boulders FTD</label>
+          <input type="text" id="boulderFtd" value="1347 MT" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label><i class="fas fa-calendar-alt"></i> Boulders MTD</label>
+        <input type="text" id="boulderMtd" value="27973 MT" />
+      </div>
 
-<div class="form-grid">
+      <!-- Plant production -->
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-industry"></i> Plant Trips FTD</label>
+          <input type="text" id="plantTripsFtd" value="67" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-industry"></i> Plant FTD</label>
+          <input type="text" id="plantFtd" value="1565 MT" />
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-industry"></i> Plant MTD</label>
+          <input type="text" id="plantMtd" value="28300 MT" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-tachometer-alt"></i> TPH</label>
+          <input type="text" id="plantTph" value="170" />
+        </div>
+      </div>
 
-    <div class="form-group">
-        <label>Date</label>
-        <input type="date" id="date" value="2026-07-10">
+      <!-- Dispatch Qty -->
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-shipping-fast"></i> Dispatch FTD</label>
+          <input type="text" id="dispatchFtd" value="45 MT" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-shipping-fast"></i> Dispatch MTD</label>
+          <input type="text" id="dispatchMtd" value="16524 MT" />
+        </div>
+      </div>
+
+      <!-- Revenue Basic -->
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-coins"></i> Basic FTD</label>
+          <input type="text" id="basicFtd" value=".03 L" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-coins"></i> Basic MTD</label>
+          <input type="text" id="basicMtd" value="66.6 L" />
+        </div>
+      </div>
+
+      <!-- Total Revenue -->
+      <div class="row2">
+        <div class="field-group">
+          <label><i class="fas fa-money-bill-wave"></i> Total FTD</label>
+          <input type="text" id="totalFtd" value=".03 L" />
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-money-bill-wave"></i> Total MTD</label>
+          <input type="text" id="totalMtd" value="107.4 L" />
+        </div>
+      </div>
+
+      <!-- Royalty -->
+      <div class="field-group">
+        <label><i class="fas fa-gavel"></i> Royalty</label>
+        <input type="text" id="royalty" value="-33097 MT" />
+      </div>
+
+      <!-- Remarks -->
+      <div class="field-group">
+        <label><i class="fas fa-comment-dots"></i> Remarks</label>
+        <textarea id="remarksInput" rows="2">Dispatch Nill due to MDL shows negative quantity royalty.</textarea>
+      </div>
+
+      <button type="button" class="btn-generate" id="generateBtn"><i class="fas fa-sync-alt"></i> Generate WhatsApp Preview</button>
+    </form>
+  </div>
+
+  <!-- ========== PREVIEW ========== -->
+  <div class="preview-card">
+    <div class="preview-header">
+      <span><i class="fab fa-whatsapp"></i> WhatsApp Preview</span>
+      <small><i class="far fa-copy"></i> copy & paste</small>
     </div>
+    <div class="whatsapp-msg" id="whatsappPreview">
+      *Good Morning Sir,* 
+      DATE 23-07-2026. 
+      *Mine Operations* 
+      Compressors : 10
+      Holes : 713
+      Feetage : 3891
+      Production FTD : 3113 MT
+      Production MTD : 20096 MT
+      *Today planning* (24-07-2026) 
+      Compressors : 08 Nos
+      Holes :  480
+      Feetage : 2600
 
-    <div class="form-group">
-        <label>Planning Date</label>
-        <input type="date" id="planningDate" value="2026-07-10">
+      *Boulders Dispatch Qty :* 
+      Total Trips : 59
+      *FTD : 1347 MT* 
+      *MTD : 27973 MT* 
+
+      *Plant production :*
+      *FTD Trips : 67* 
+      *FTD   :   1565 MT* 
+      *MTD  :   28300 MT* 
+      *TPH :  170* 
+
+      *Dispatch Qnty :*
+      *FTD :  45 MT* 
+      *MTD :  16524 MT*
+
+      *Basic revenue :* 
+      *FTD :  .03 L*  
+      *MTD :  66.6 L* 
+
+      *Total Revenue :* 
+      *FTD :  .03 L*
+      *MTD : 107.4 L*
+
+      *Royalty :*
+      *-33097 MT* 
+
+      *Remarks :* 
+      Dispatch Nill due to MDL shows negative quantity royalty.
     </div>
-
-
-    <div class="form-group">
-        <label>Production</label>
-        <input type="text" id="production"
-               value="compressors not available">
-    </div>
-
-    <div class="form-group">
-        <label>Production MTD</label>
-        <input type="text" id="productionMTD"
-               value="25442 MT">
-    </div>
-
-
-    <div class="form-group">
-        <label>Compressors</label>
-        <input type="text" id="compressors" value="8 Nos">
-    </div>
-
-    <div class="form-group">
-        <label>Holes</label>
-        <input type="text" id="holes" value="480">
-    </div>
-
-
-    <div class="form-group">
-        <label>Feetage</label>
-        <input type="text" id="feetage" value="2640">
-    </div>
-
-    <div class="form-group">
-        <label>Boulder Dispatch FTD</label>
-        <input type="text" id="boulderFTD"
-               value="2,362 MT">
-    </div>
-
-
-    <div class="form-group">
-        <label>Boulder Dispatch MTD</label>
-        <input type="text" id="boulderMTD"
-               value="15,057 MT">
-    </div>
-
-    <div class="form-group">
-        <label>Plant Production FTD Trips</label>
-        <input type="text" id="plantTrips"
-               value="59">
-    </div>
-
-
-    <div class="form-group">
-        <label>Plant Production FTD MT</label>
-        <input type="text" id="plantFTD"
-               value="1731 MT">
-    </div>
-
-    <div class="form-group">
-        <label>Plant Production MTD</label>
-        <input type="text" id="plantMTD"
-               value="14,999 MT">
-    </div>
-
-
-    <div class="form-group">
-        <label>TPH</label>
-        <input type="text" id="tph" value="180">
-    </div>
-
-    <div class="form-group">
-        <label>Dispatch FTD</label>
-        <input type="text" id="dispatchFTD"
-               value="1,084 MT">
-    </div>
-
-
-    <div class="form-group">
-        <label>Dispatch MTD</label>
-        <input type="text" id="dispatchMTD"
-               value="10,711 MT">
-    </div>
-
-    <div class="form-group">
-        <label>Basic Revenue FTD</label>
-        <input type="text" id="basicFTD"
-               value="4.5 L">
-    </div>
-
-
-    <div class="form-group">
-        <label>Basic Revenue MTD</label>
-        <input type="text" id="basicMTD"
-               value="47 L">
-    </div>
-
-    <div class="form-group">
-        <label>Total Revenue FTD</label>
-        <input type="text" id="totalFTD"
-               value="8.3 L">
-    </div>
-
-
-    <div class="form-group">
-        <label>Total Revenue MTD</label>
-        <input type="text" id="totalMTD"
-               value="83.6 L">
-    </div>
-
-
-    <div class="form-group full-width">
-        <label>Remarks</label>
-
-        <textarea id="remarks">Dispatch less due to dispatch movement road via Martur is currently under construction for CC road. Boulder dispatch quantity and plant production less due to shortage of diesel and powercut (10 Hrs).</textarea>
-
-    </div>
-
+    <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+    <div class="footer-hint"><i class="fas fa-edit"></i> edit fields → click generate → copy</div>
+  </div>
 </div>
-
-
-<div class="button-area">
-
-    <button class="generate-btn"
-            onclick="generateReport()">
-        Generate Report
-    </button>
-
-    <button class="print-btn"
-            onclick="window.print()">
-        Print / Save PDF
-    </button>
-
-</div>
-
-</div>
-
-
-<!-- ================= REPORT ================= -->
-
-<div class="report-page">
-
-<h1 class="report-title">
-    Daily Operations Report
-</h1>
-
-
-<div class="date">
-    Date: <span id="rDate"></span>
-</div>
-
-
-<!-- MINE OPERATIONS -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Mine Operations:
-</h2>
-
-<p class="line">
-    <span class="label">Production:</span>
-    <span id="rProduction"></span>
-</p>
-
-<p class="line">
-    <span class="label">Production MTD:</span>
-    <span id="rProductionMTD"></span>
-</p>
-
-</div>
-
-
-<!-- PLANNING -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Today Planning (<span id="rPlanningDate"></span>):
-</h2>
-
-<p class="line">
-    <span class="label">Compressors:</span>
-    <span id="rCompressors"></span>
-</p>
-
-<p class="line">
-    <span class="label">Holes:</span>
-    <span id="rHoles"></span>
-</p>
-
-<p class="line">
-    <span class="label">Feetage:</span>
-    <span id="rFeetage"></span>
-</p>
-
-</div>
-
-
-<!-- BOULDER -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Boulders Dispatch:
-</h2>
-
-<p class="line">
-
-<span class="label">FTD:</span>
-<span id="rBoulderFTD"></span>
-
-<span class="separator">|</span>
-
-<span class="label">MTD:</span>
-<span id="rBoulderMTD"></span>
-
-</p>
-
-</div>
-
-
-<!-- PLANT -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Plant Production:
-</h2>
-
-<p class="line">
-
-<span class="label">FTD:</span>
-
-Trips:
-<span id="rPlantTrips"></span>
-
-<span class="separator">•</span>
-
-<span id="rPlantFTD"></span>
-
-</p>
-
-
-<p class="line">
-
-<span class="label">MTD:</span>
-<span id="rPlantMTD"></span>
-
-<span class="separator">•</span>
-
-<span class="label">TPH:</span>
-<span id="rTPH"></span>
-
-</p>
-
-</div>
-
-
-<!-- DISPATCH -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Dispatch Qty:
-</h2>
-
-<p class="line">
-
-<span class="label">FTD:</span>
-<span id="rDispatchFTD"></span>
-
-<span class="separator">|</span>
-
-<span class="label">MTD:</span>
-<span id="rDispatchMTD"></span>
-
-</p>
-
-</div>
-
-
-<!-- REVENUE -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Revenue:
-</h2>
-
-<p class="line">
-
-<span class="label">Basic:</span>
-
-FTD
-<span id="rBasicFTD"></span>
-
-<span class="separator">|</span>
-
-MTD
-<span id="rBasicMTD"></span>
-
-</p>
-
-
-<p class="line">
-
-<span class="label">Total:</span>
-
-FTD
-<span id="rTotalFTD"></span>
-
-<span class="separator">|</span>
-
-MTD
-<span id="rTotalMTD"></span>
-
-</p>
-
-</div>
-
-
-<!-- REMARKS -->
-
-<div class="section">
-
-<h2 class="section-title">
-    Remarks:
-</h2>
-
-<p class="remarks-text"
-   id="rRemarks">
-</p>
-
-</div>
-
-
-</div>
-
 
 <script>
+  (function() {
+    const generateBtn = document.getElementById('generateBtn');
+    const previewDiv = document.getElementById('whatsappPreview');
+    const copyBtn = document.getElementById('copyBtn');
 
-function getValue(id) {
-    return document.getElementById(id).value;
-}
+    function getVal(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
 
+    function buildMessage() {
+      const date = getVal('dateInput') || '23-07-2026';
+      const greeting = getVal('greetingInput') || 'Good Morning Sir';
+      const compressors = getVal('compressors') || '10';
+      const holes = getVal('holes') || '713';
+      const feetage = getVal('feetage') || '3891';
+      const prodFtd = getVal('prodFtd') || '3113 MT';
+      const prodMtd = getVal('prodMtd') || '20096 MT';
+      const todayPlan = getVal('todayPlan') || 'Compressors : 08 Nos · Holes : 480 · Feetage : 2600';
+      const boulderTrips = getVal('boulderTrips') || '59';
+      const bFtd = getVal('boulderFtd') || '1347 MT';
+      const bMtd = getVal('boulderMtd') || '27973 MT';
+      const plantTripsFtd = getVal('plantTripsFtd') || '67';
+      const plantFtd = getVal('plantFtd') || '1565 MT';
+      const plantMtd = getVal('plantMtd') || '28300 MT';
+      const plantTph = getVal('plantTph') || '170';
+      const dFtd = getVal('dispatchFtd') || '45 MT';
+      const dMtd = getVal('dispatchMtd') || '16524 MT';
+      const basicFtd = getVal('basicFtd') || '.03 L';
+      const basicMtd = getVal('basicMtd') || '66.6 L';
+      const totalFtd = getVal('totalFtd') || '.03 L';
+      const totalMtd = getVal('totalMtd') || '107.4 L';
+      const royalty = getVal('royalty') || '-33097 MT';
+      const remarks = getVal('remarksInput') || 'Dispatch Nill due to MDL shows negative quantity royalty.';
 
-function formatDate(dateString) {
+      // Parse today plan for bullets
+      let planBullets = '';
+      const planParts = todayPlan.split('·').map(p => p.trim()).filter(p => p);
+      if (planParts.length >= 3) {
+        planBullets = `Compressors : ${planParts[0].replace(/Compressors\s*:/i,'').trim() || '08 Nos'}\nHoles :  ${planParts[1].replace(/Holes\s*:/i,'').trim() || '480'}\nFeetage : ${planParts[2].replace(/Feetage\s*:/i,'').trim() || '2600'}`;
+      } else {
+        // fallback: try to extract from raw string
+        const cMatch = todayPlan.match(/Compressors?\s*[:]\s*([^\·]+)/i);
+        const hMatch = todayPlan.match(/Holes?\s*[:]\s*([^\·]+)/i);
+        const fMatch = todayPlan.match(/Feetage?\s*[:]\s*([^\·]+)/i);
+        const c = cMatch ? cMatch[1].trim() : '08 Nos';
+        const h = hMatch ? hMatch[1].trim() : '480';
+        const f = fMatch ? fMatch[1].trim() : '2600';
+        planBullets = `Compressors : ${c}\nHoles :  ${h}\nFeetage : ${f}`;
+      }
 
-    if (!dateString) return "";
+      // Build message exactly matching requested format
+      let msg = `*${greeting},* \n`;
+      msg += `DATE ${date}. \n`;
+      msg += `*Mine Operations* \n`;
+      msg += `Compressors : ${compressors}\n`;
+      msg += `Holes : ${holes}\n`;
+      msg += `Feetage : ${feetage}\n`;
+      msg += `Production FTD : ${prodFtd}\n`;
+      msg += `Production MTD : ${prodMtd}\n`;
+      msg += `*Today planning* (${date.slice(0,2)+'-'+(String(Number(date.slice(3,5))+1)).padStart(2,'0')+'-'+date.slice(6) || '24-07-2026'}) \n`;
+      msg += `${planBullets}\n\n`;
+      msg += `*Boulders Dispatch Qty :* \n`;
+      msg += `Total Trips : ${boulderTrips}\n`;
+      msg += `*FTD : ${bFtd}* \n`;
+      msg += `*MTD : ${bMtd}* \n\n`;
+      msg += `*Plant production :*\n`;
+      msg += `*FTD Trips : ${plantTripsFtd}* \n`;
+      msg += `*FTD   :   ${plantFtd}* \n`;
+      msg += `*MTD  :   ${plantMtd}* \n`;
+      msg += `*TPH :  ${plantTph}* \n\n`;
+      msg += `*Dispatch Qnty :*\n`;
+      msg += `*FTD :  ${dFtd}* \n`;
+      msg += `*MTD :  ${dMtd}*\n\n`;
+      msg += `*Basic revenue :* \n`;
+      msg += `*FTD :  ${basicFtd}*  \n`;
+      msg += `*MTD :  ${basicMtd}* \n\n`;
+      msg += `*Total Revenue :* \n`;
+      msg += `*FTD :  ${totalFtd}*\n`;
+      msg += `*MTD : ${totalMtd}*\n\n`;
+      msg += `*Royalty :*\n`;
+      msg += `*${royalty}* \n\n`;
+      msg += `*Remarks :* \n`;
+      msg += `${remarks}`;
 
-    const date = new Date(dateString);
+      return msg;
+    }
 
-    const day = String(date.getDate()).padStart(2, '0');
+    function updatePreview() {
+      previewDiv.textContent = buildMessage();
+    }
 
-    const month = String(date.getMonth() + 1)
-        .padStart(2, '0');
+    generateBtn.addEventListener('click', updatePreview);
 
-    const year = date.getFullYear();
+    // Auto-update on any input change
+    const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
+    inputs.forEach(inp => {
+      inp.addEventListener('input', updatePreview);
+    });
 
-    return `${day}/${month}/${year}`;
-}
+    // Copy to clipboard
+    copyBtn.addEventListener('click', function() {
+      const text = previewDiv.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          copyBtn.classList.add('copied');
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+            copyBtn.classList.remove('copied');
+          }, 2200);
+        }).catch(() => {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    });
 
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+          copyBtn.classList.remove('copied');
+        }, 2200);
+      } catch (e) {
+        alert('Could not copy. Please select the text manually.');
+      }
+      document.body.removeChild(textarea);
+    }
 
-function generateReport() {
-
-    document.getElementById("rDate").innerText =
-        formatDate(getValue("date"));
-
-    document.getElementById("rPlanningDate").innerText =
-        formatDate(getValue("planningDate"));
-
-    document.getElementById("rProduction").innerText =
-        getValue("production");
-
-    document.getElementById("rProductionMTD").innerText =
-        getValue("productionMTD");
-
-    document.getElementById("rCompressors").innerText =
-        getValue("compressors");
-
-    document.getElementById("rHoles").innerText =
-        getValue("holes");
-
-    document.getElementById("rFeetage").innerText =
-        getValue("feetage");
-
-    document.getElementById("rBoulderFTD").innerText =
-        getValue("boulderFTD");
-
-    document.getElementById("rBoulderMTD").innerText =
-        getValue("boulderMTD");
-
-    document.getElementById("rPlantTrips").innerText =
-        getValue("plantTrips");
-
-    document.getElementById("rPlantFTD").innerText =
-        getValue("plantFTD");
-
-    document.getElementById("rPlantMTD").innerText =
-        getValue("plantMTD");
-
-    document.getElementById("rTPH").innerText =
-        getValue("tph");
-
-    document.getElementById("rDispatchFTD").innerText =
-        getValue("dispatchFTD");
-
-    document.getElementById("rDispatchMTD").innerText =
-        getValue("dispatchMTD");
-
-    document.getElementById("rBasicFTD").innerText =
-        getValue("basicFTD");
-
-    document.getElementById("rBasicMTD").innerText =
-        getValue("basicMTD");
-
-    document.getElementById("rTotalFTD").innerText =
-        getValue("totalFTD");
-
-    document.getElementById("rTotalMTD").innerText =
-        getValue("totalMTD");
-
-    document.getElementById("rRemarks").innerText =
-        getValue("remarks");
-
-}
-
-
-// Generate report automatically when page opens
-
-window.onload = function() {
-    generateReport();
-};
-
+    // initial preview
+    updatePreview();
+  })();
 </script>
-
-
 </body>
 </html>
