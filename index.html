@@ -164,9 +164,16 @@
             word-break: break-word;
             max-height: 620px;
             overflow-y: auto;
+            min-height: 200px;
         }
         .whatsapp-msg strong {
             color: #003153;
+        }
+        .whatsapp-msg .empty-state {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            padding: 40px 0;
         }
         .copy-btn {
             background: #25D366;
@@ -197,6 +204,34 @@
             color: #7d97ad;
             margin-top: 10px;
         }
+        .clear-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .clear-btn:hover {
+            background: #c0392b;
+            transform: scale(0.97);
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .btn-group .btn-generate {
+            margin-top: 0;
+            flex: 1;
+        }
 
         @media (max-width: 700px) {
             .app-container {
@@ -210,6 +245,9 @@
             .row2 {
                 grid-template-columns: 1fr;
             }
+            .btn-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -222,62 +260,62 @@
 
                 <div class="field-group">
                     <label><i class="far fa-calendar-alt"></i> Date</label>
-                    <input type="text" id="dateInput" value="23-07-2026" />
+                    <input type="text" id="dateInput" placeholder="e.g. 23-07-2026" />
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-hard-hat"></i> Greeting</label>
-                    <input type="text" id="greetingInput" value="Good Morning Sir" />
+                    <input type="text" id="greetingInput" placeholder="e.g. Good Morning Sir" />
                 </div>
 
                 <!-- Mine Ops: only numbers -->
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-oil-can"></i> Compressors</label>
-                        <input type="text" id="compressors" value="10" />
+                        <input type="text" id="compressors" placeholder="e.g. 10" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-bolt"></i> Holes</label>
-                        <input type="text" id="holes" value="713" />
+                        <input type="text" id="holes" placeholder="e.g. 713" />
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-ruler"></i> Feetage</label>
-                        <input type="text" id="feetage" value="3891" />
+                        <input type="text" id="feetage" placeholder="e.g. 3891" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-weight-hanging"></i> Production FTD</label>
-                        <input type="text" id="prodFtd" value="3113" />
+                        <input type="text" id="prodFtd" placeholder="e.g. 3113" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-chart-line"></i> Production MTD</label>
-                    <input type="text" id="prodMtd" value="20096" />
+                    <input type="text" id="prodMtd" placeholder="e.g. 20096" />
                     <div class="unit-hint">MT</div>
                 </div>
 
                 <!-- Today planning -->
                 <div class="field-group">
                     <label><i class="fas fa-clipboard-list"></i> Today Planning (next day)</label>
-                    <input type="text" id="todayPlan" value="Compressors : 08 Nos · Holes : 480 · Feetage : 2600" />
+                    <input type="text" id="todayPlan" placeholder="Compressors : 08 Nos · Holes : 480 · Feetage : 2600" />
                 </div>
 
                 <!-- Boulders -->
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-truck-loading"></i> Boulders Trips</label>
-                        <input type="text" id="boulderTrips" value="59" />
+                        <input type="text" id="boulderTrips" placeholder="e.g. 59" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-weight-hanging"></i> Boulders FTD</label>
-                        <input type="text" id="boulderFtd" value="1347" />
+                        <input type="text" id="boulderFtd" placeholder="e.g. 1347" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-calendar-alt"></i> Boulders MTD</label>
-                    <input type="text" id="boulderMtd" value="27973" />
+                    <input type="text" id="boulderMtd" placeholder="e.g. 27973" />
                     <div class="unit-hint">MT</div>
                 </div>
 
@@ -285,23 +323,23 @@
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-industry"></i> Plant Trips FTD</label>
-                        <input type="text" id="plantTripsFtd" value="67" />
+                        <input type="text" id="plantTripsFtd" placeholder="e.g. 67" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-industry"></i> Plant FTD</label>
-                        <input type="text" id="plantFtd" value="1565" />
+                        <input type="text" id="plantFtd" placeholder="e.g. 1565" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-industry"></i> Plant MTD</label>
-                        <input type="text" id="plantMtd" value="28300" />
+                        <input type="text" id="plantMtd" placeholder="e.g. 28300" />
                         <div class="unit-hint">MT</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-tachometer-alt"></i> TPH</label>
-                        <input type="text" id="plantTph" value="170" />
+                        <input type="text" id="plantTph" placeholder="e.g. 170" />
                     </div>
                 </div>
 
@@ -309,12 +347,12 @@
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-shipping-fast"></i> Dispatch FTD</label>
-                        <input type="text" id="dispatchFtd" value="45" />
+                        <input type="text" id="dispatchFtd" placeholder="e.g. 45" />
                         <div class="unit-hint">MT</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-shipping-fast"></i> Dispatch MTD</label>
-                        <input type="text" id="dispatchMtd" value="16524" />
+                        <input type="text" id="dispatchMtd" placeholder="e.g. 16524" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
@@ -323,24 +361,24 @@
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-coins"></i> Basic FTD</label>
-                        <input type="text" id="basicFtd" value=".03" />
+                        <input type="text" id="basicFtd" placeholder="e.g. .03" />
                         <div class="unit-hint">L</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-coins"></i> Basic MTD</label>
-                        <input type="text" id="basicMtd" value="66.6" />
+                        <input type="text" id="basicMtd" placeholder="e.g. 66.6" />
                         <div class="unit-hint">L</div>
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-money-bill-wave"></i> Total FTD</label>
-                        <input type="text" id="totalFtd" value=".03" />
+                        <input type="text" id="totalFtd" placeholder="e.g. .03" />
                         <div class="unit-hint">L</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-money-bill-wave"></i> Total MTD</label>
-                        <input type="text" id="totalMtd" value="107.4" />
+                        <input type="text" id="totalMtd" placeholder="e.g. 107.4" />
                         <div class="unit-hint">L</div>
                     </div>
                 </div>
@@ -348,17 +386,20 @@
                 <!-- Royalty -->
                 <div class="field-group">
                     <label><i class="fas fa-gavel"></i> Royalty</label>
-                    <input type="text" id="royalty" value="-33097" />
+                    <input type="text" id="royalty" placeholder="e.g. -33097" />
                     <div class="unit-hint">MT</div>
                 </div>
 
                 <!-- Remarks -->
                 <div class="field-group">
                     <label><i class="fas fa-comment-dots"></i> Remarks</label>
-                    <textarea id="remarksInput" rows="2">Dispatch Nill due to MDL shows negative quantity royalty.</textarea>
+                    <textarea id="remarksInput" rows="2" placeholder="Enter your remarks here..."></textarea>
                 </div>
 
-                <button type="button" class="btn-generate" id="generateBtn"><i class="fas fa-sync-alt"></i> Generate WhatsApp Preview</button>
+                <div class="btn-group">
+                    <button type="button" class="btn-generate" id="generateBtn"><i class="fas fa-sync-alt"></i> Generate Preview</button>
+                    <button type="button" class="clear-btn" id="clearBtn"><i class="fas fa-eraser"></i> Clear All</button>
+                </div>
             </form>
         </div>
 
@@ -368,56 +409,17 @@
                 <small><i class="far fa-copy"></i> copy & paste</small>
             </div>
             <div class="whatsapp-msg" id="whatsappPreview">
-                *Good Morning Sir,*
-                DATE 23-07-2026.
-                *Mine Operations*
-                Compressors : 10
-                Holes : 713
-                Feetage : 3891
-                Production FTD : 3113 MT
-                Production MTD : 20096 MT
-                *Today planning* (23-08-2026)
-                Compressors : 08 Nos
-                Holes : 480
-                Feetage : 2600
-
-                *Boulders Dispatch Qty :*
-                Total Trips : 59
-                *FTD : 1347 MT*
-                *MTD : 27973 MT*
-
-                *Plant production :*
-                *FTD Trips : 67*
-                *FTD   :   1565 MT*
-                *MTD  :   28300 MT*
-                *TPH :  170*
-
-                *Dispatch Qnty :*
-                *FTD :  45 MT*
-                *MTD :  16524 MT*
-
-                *Basic revenue :*
-                *FTD :  .03 L*
-                *MTD :  66.6 L*
-
-                *Total Revenue :*
-                *FTD :  .03 L*
-                *MTD : 107.4 L*
-
-                *Royalty :*
-                *-33097 MT*
-
-                *Remarks :*
-                Dispatch Nill due to MDL shows negative quantity royalty.
+                <div class="empty-state">Fill in the fields and click "Generate Preview"</div>
             </div>
             <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
-            <div class="footer-hint"><i class="fas fa-edit"></i> edit fields → click generate → copy</div>
+            <div class="footer-hint"><i class="fas fa-edit"></i> all fields start empty — fill & generate</div>
         </div>
     </div>
 
     <script>
         (function() {
             const generateBtn = document.getElementById('generateBtn');
+            const clearBtn = document.getElementById('clearBtn');
             const previewDiv = document.getElementById('whatsappPreview');
             const copyBtn = document.getElementById('copyBtn');
 
@@ -427,29 +429,39 @@
             }
 
             function buildMessage() {
-                const date = getVal('dateInput') || '23-07-2026';
-                const greeting = getVal('greetingInput') || 'Good Morning Sir';
-                const compressors = getVal('compressors') || '10';
-                const holes = getVal('holes') || '713';
-                const feetage = getVal('feetage') || '3891';
-                const prodFtd = getVal('prodFtd') || '3113';
-                const prodMtd = getVal('prodMtd') || '20096';
-                const todayPlan = getVal('todayPlan') || 'Compressors : 08 Nos · Holes : 480 · Feetage : 2600';
-                const boulderTrips = getVal('boulderTrips') || '59';
-                const bFtd = getVal('boulderFtd') || '1347';
-                const bMtd = getVal('boulderMtd') || '27973';
-                const plantTripsFtd = getVal('plantTripsFtd') || '67';
-                const plantFtd = getVal('plantFtd') || '1565';
-                const plantMtd = getVal('plantMtd') || '28300';
-                const plantTph = getVal('plantTph') || '170';
-                const dFtd = getVal('dispatchFtd') || '45';
-                const dMtd = getVal('dispatchMtd') || '16524';
-                const basicFtd = getVal('basicFtd') || '.03';
-                const basicMtd = getVal('basicMtd') || '66.6';
-                const totalFtd = getVal('totalFtd') || '.03';
-                const totalMtd = getVal('totalMtd') || '107.4';
-                const royalty = getVal('royalty') || '-33097';
-                const remarks = getVal('remarksInput') || 'Dispatch Nill due to MDL shows negative quantity royalty.';
+                const date = getVal('dateInput');
+                const greeting = getVal('greetingInput');
+                const compressors = getVal('compressors');
+                const holes = getVal('holes');
+                const feetage = getVal('feetage');
+                const prodFtd = getVal('prodFtd');
+                const prodMtd = getVal('prodMtd');
+                const todayPlan = getVal('todayPlan');
+                const boulderTrips = getVal('boulderTrips');
+                const bFtd = getVal('boulderFtd');
+                const bMtd = getVal('boulderMtd');
+                const plantTripsFtd = getVal('plantTripsFtd');
+                const plantFtd = getVal('plantFtd');
+                const plantMtd = getVal('plantMtd');
+                const plantTph = getVal('plantTph');
+                const dFtd = getVal('dispatchFtd');
+                const dMtd = getVal('dispatchMtd');
+                const basicFtd = getVal('basicFtd');
+                const basicMtd = getVal('basicMtd');
+                const totalFtd = getVal('totalFtd');
+                const totalMtd = getVal('totalMtd');
+                const royalty = getVal('royalty');
+                const remarks = getVal('remarksInput');
+
+                // Check if any data is entered
+                const hasData = date || greeting || compressors || holes || feetage || prodFtd || prodMtd || 
+                               todayPlan || boulderTrips || bFtd || bMtd || plantTripsFtd || plantFtd || 
+                               plantMtd || plantTph || dFtd || dMtd || basicFtd || basicMtd || totalFtd || 
+                               totalMtd || royalty || remarks;
+
+                if (!hasData) {
+                    return '<div class="empty-state">Fill in the fields and click "Generate Preview"</div>';
+                }
 
                 // Calculate next day for "Today planning"
                 let nextDate = '';
@@ -459,90 +471,176 @@
                         let day = parseInt(parts[0], 10);
                         let month = parseInt(parts[1], 10);
                         let year = parts[2];
-                        // Simple increment (no month rollover for demo)
-                        day = day + 1;
-                        if (day > 31) { day = 1;
-                            month++; }
-                        if (month > 12) { month = 1; }
-                        nextDate = String(day).padStart(2, '0') + '-' + String(month).padStart(2, '0') + '-' + year;
+                        if (!isNaN(day) && !isNaN(month)) {
+                            day = day + 1;
+                            if (day > 31) { day = 1;
+                                month++; }
+                            if (month > 12) { month = 1; }
+                            nextDate = String(day).padStart(2, '0') + '-' + String(month).padStart(2, '0') + '-' + year;
+                        } else {
+                            nextDate = date;
+                        }
                     } else {
                         nextDate = date;
                     }
-                } else {
-                    nextDate = '24-07-2026';
                 }
 
                 // Parse today plan
                 let planBullets = '';
-                const planParts = todayPlan.split('·').map(p => p.trim()).filter(p => p);
-                if (planParts.length >= 3) {
-                    const cMatch = planParts[0].match(/Compressors?\s*[:]\s*(.+)/i);
-                    const hMatch = planParts[1].match(/Holes?\s*[:]\s*(.+)/i);
-                    const fMatch = planParts[2].match(/Feetage?\s*[:]\s*(.+)/i);
-                    const c = cMatch ? cMatch[1].trim() : '08 Nos';
-                    const h = hMatch ? hMatch[1].trim() : '480';
-                    const f = fMatch ? fMatch[1].trim() : '2600';
-                    planBullets = `Compressors : ${c}\nHoles :  ${h}\nFeetage : ${f}`;
-                } else {
-                    const cMatch = todayPlan.match(/Compressors?\s*[:]\s*([^\·]+)/i);
-                    const hMatch = todayPlan.match(/Holes?\s*[:]\s*([^\·]+)/i);
-                    const fMatch = todayPlan.match(/Feetage?\s*[:]\s*([^\·]+)/i);
-                    const c = cMatch ? cMatch[1].trim() : '08 Nos';
-                    const h = hMatch ? hMatch[1].trim() : '480';
-                    const f = fMatch ? fMatch[1].trim() : '2600';
-                    planBullets = `Compressors : ${c}\nHoles :  ${h}\nFeetage : ${f}`;
+                if (todayPlan) {
+                    const planParts = todayPlan.split('·').map(p => p.trim()).filter(p => p);
+                    if (planParts.length >= 3) {
+                        const cMatch = planParts[0].match(/Compressors?\s*[:]\s*(.+)/i);
+                        const hMatch = planParts[1].match(/Holes?\s*[:]\s*(.+)/i);
+                        const fMatch = planParts[2].match(/Feetage?\s*[:]\s*(.+)/i);
+                        const c = cMatch ? cMatch[1].trim() : planParts[0];
+                        const h = hMatch ? hMatch[1].trim() : planParts[1];
+                        const f = fMatch ? fMatch[1].trim() : planParts[2];
+                        planBullets = `Compressors : ${c}\nHoles :  ${h}\nFeetage : ${f}`;
+                    } else {
+                        const cMatch = todayPlan.match(/Compressors?\s*[:]\s*([^\·]+)/i);
+                        const hMatch = todayPlan.match(/Holes?\s*[:]\s*([^\·]+)/i);
+                        const fMatch = todayPlan.match(/Feetage?\s*[:]\s*([^\·]+)/i);
+                        const c = cMatch ? cMatch[1].trim() : '';
+                        const h = hMatch ? hMatch[1].trim() : '';
+                        const f = fMatch ? fMatch[1].trim() : '';
+                        if (c || h || f) {
+                            planBullets = `Compressors : ${c || '___'}\nHoles :  ${h || '___'}\nFeetage : ${f || '___'}`;
+                        } else {
+                            planBullets = todayPlan;
+                        }
+                    }
                 }
 
-                // Build message with fixed units
-                let msg = `*${greeting},* \n`;
-                msg += `DATE ${date}. \n`;
-                msg += `*Mine Operations* \n`;
-                msg += `Compressors : ${compressors}\n`;
-                msg += `Holes : ${holes}\n`;
-                msg += `Feetage : ${feetage}\n`;
-                msg += `Production FTD : ${prodFtd} MT\n`;
-                msg += `Production MTD : ${prodMtd} MT\n`;
-                msg += `*Today planning* (${nextDate}) \n`;
-                msg += `${planBullets}\n\n`;
-                msg += `*Boulders Dispatch Qty :* \n`;
-                msg += `Total Trips : ${boulderTrips}\n`;
-                msg += `*FTD : ${bFtd} MT* \n`;
-                msg += `*MTD : ${bMtd} MT* \n\n`;
-                msg += `*Plant production :*\n`;
-                msg += `*FTD Trips : ${plantTripsFtd}* \n`;
-                msg += `*FTD   :   ${plantFtd} MT* \n`;
-                msg += `*MTD  :   ${plantMtd} MT* \n`;
-                msg += `*TPH :  ${plantTph}* \n\n`;
-                msg += `*Dispatch Qnty :*\n`;
-                msg += `*FTD :  ${dFtd} MT* \n`;
-                msg += `*MTD :  ${dMtd} MT*\n\n`;
-                msg += `*Basic revenue :* \n`;
-                msg += `*FTD :  ${basicFtd} L*  \n`;
-                msg += `*MTD :  ${basicMtd} L* \n\n`;
-                msg += `*Total Revenue :* \n`;
-                msg += `*FTD :  ${totalFtd} L*\n`;
-                msg += `*MTD : ${totalMtd} L*\n\n`;
-                msg += `*Royalty :*\n`;
-                msg += `*${royalty} MT* \n\n`;
-                msg += `*Remarks :* \n`;
-                msg += `${remarks}`;
+                // Build message with fixed units - only show fields that have values
+                let msg = '';
+
+                // Greeting and Date
+                if (greeting || date) {
+                    if (greeting) msg += `*${greeting},* \n`;
+                    if (date) msg += `DATE ${date}. \n`;
+                    msg += '\n';
+                }
+
+                // Mine Operations
+                const hasMineOps = compressors || holes || feetage || prodFtd || prodMtd;
+                if (hasMineOps) {
+                    msg += `*Mine Operations* \n`;
+                    if (compressors) msg += `Compressors : ${compressors}\n`;
+                    if (holes) msg += `Holes : ${holes}\n`;
+                    if (feetage) msg += `Feetage : ${feetage}\n`;
+                    if (prodFtd) msg += `Production FTD : ${prodFtd} MT\n`;
+                    if (prodMtd) msg += `Production MTD : ${prodMtd} MT\n`;
+                    msg += '\n';
+                }
+
+                // Today Planning
+                if (todayPlan && (planBullets || todayPlan)) {
+                    msg += `*Today planning* (${nextDate || '___'}) \n`;
+                    msg += `${planBullets || todayPlan}\n\n`;
+                }
+
+                // Boulders Dispatch
+                const hasBoulders = boulderTrips || bFtd || bMtd;
+                if (hasBoulders) {
+                    msg += `*Boulders Dispatch Qty :* \n`;
+                    if (boulderTrips) msg += `Total Trips : ${boulderTrips}\n`;
+                    if (bFtd) msg += `*FTD : ${bFtd} MT* \n`;
+                    if (bMtd) msg += `*MTD : ${bMtd} MT* \n`;
+                    msg += '\n';
+                }
+
+                // Plant production
+                const hasPlant = plantTripsFtd || plantFtd || plantMtd || plantTph;
+                if (hasPlant) {
+                    msg += `*Plant production :*\n`;
+                    if (plantTripsFtd) msg += `*FTD Trips : ${plantTripsFtd}* \n`;
+                    if (plantFtd) msg += `*FTD   :   ${plantFtd} MT* \n`;
+                    if (plantMtd) msg += `*MTD  :   ${plantMtd} MT* \n`;
+                    if (plantTph) msg += `*TPH :  ${plantTph}* \n`;
+                    msg += '\n';
+                }
+
+                // Dispatch Qty
+                const hasDispatch = dFtd || dMtd;
+                if (hasDispatch) {
+                    msg += `*Dispatch Qnty :*\n`;
+                    if (dFtd) msg += `*FTD :  ${dFtd} MT* \n`;
+                    if (dMtd) msg += `*MTD :  ${dMtd} MT*\n`;
+                    msg += '\n';
+                }
+
+                // Revenue
+                const hasRevenue = basicFtd || basicMtd || totalFtd || totalMtd;
+                if (hasRevenue) {
+                    if (basicFtd || basicMtd) {
+                        msg += `*Basic revenue :* \n`;
+                        if (basicFtd) msg += `*FTD :  ${basicFtd} L*  \n`;
+                        if (basicMtd) msg += `*MTD :  ${basicMtd} L* \n`;
+                        msg += '\n';
+                    }
+                    if (totalFtd || totalMtd) {
+                        msg += `*Total Revenue :* \n`;
+                        if (totalFtd) msg += `*FTD :  ${totalFtd} L*\n`;
+                        if (totalMtd) msg += `*MTD : ${totalMtd} L*\n`;
+                        msg += '\n';
+                    }
+                }
+
+                // Royalty
+                if (royalty) {
+                    msg += `*Royalty :*\n`;
+                    msg += `*${royalty} MT* \n\n`;
+                }
+
+                // Remarks
+                if (remarks) {
+                    msg += `*Remarks :* \n`;
+                    msg += `${remarks}`;
+                }
+
+                // If nothing was added, show empty state
+                if (!msg.trim()) {
+                    return '<div class="empty-state">Fill in the fields and click "Generate Preview"</div>';
+                }
 
                 return msg;
             }
 
             function updatePreview() {
-                previewDiv.textContent = buildMessage();
+                const text = buildMessage();
+                if (text.includes('empty-state')) {
+                    previewDiv.innerHTML = text;
+                } else {
+                    previewDiv.textContent = text;
+                }
             }
 
+            // Generate on button click
             generateBtn.addEventListener('click', updatePreview);
 
+            // Clear all fields
+            clearBtn.addEventListener('click', function() {
+                const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
+                inputs.forEach(inp => {
+                    inp.value = '';
+                });
+                updatePreview();
+            });
+
+            // Auto-update on input change (optional, but we'll keep it for convenience)
             const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
             inputs.forEach(inp => {
                 inp.addEventListener('input', updatePreview);
             });
 
+            // Copy to clipboard
             copyBtn.addEventListener('click', function() {
-                const text = previewDiv.textContent;
+                let text = previewDiv.textContent;
+                // Check if it's the empty state message
+                if (previewDiv.querySelector('.empty-state')) {
+                    text = 'Please fill in the fields first.';
+                }
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(text).then(() => {
                         copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
@@ -578,6 +676,7 @@
                 document.body.removeChild(textarea);
             }
 
+            // Initial empty state
             updatePreview();
         })();
     </script>
