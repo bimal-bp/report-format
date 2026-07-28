@@ -87,36 +87,19 @@
             margin-top: 2px;
             padding-left: 4px;
         }
+        .field-group .fixed-label {
+            background: #f0f4fa;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            color: #1d2f3d;
+            font-weight: 500;
+        }
         .row2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-        .btn-generate {
-            background: #1d4b5e;
-            color: white;
-            border: none;
-            padding: 14px 18px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 1rem;
-            width: 100%;
-            margin-top: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-generate:hover {
-            background: #0f3a4a;
-            transform: scale(0.98);
-        }
-        .btn-generate i {
-            font-size: 1.1rem;
-        }
-
         .preview-card {
             flex: 1 1 440px;
             background: #f0f4fa;
@@ -208,29 +191,32 @@
             background: #e74c3c;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 12px 16px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            margin-top: 4px;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 6px;
         }
         .clear-btn:hover {
             background: #c0392b;
             transform: scale(0.97);
         }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 6px;
-        }
-        .btn-group .btn-generate {
-            margin-top: 0;
-            flex: 1;
+        .auto-indicator {
+            font-size: 0.7rem;
+            color: #2a7f6e;
+            background: #e8f5f0;
+            padding: 2px 12px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         @media (max-width: 700px) {
@@ -245,9 +231,6 @@
             .row2 {
                 grid-template-columns: 1fr;
             }
-            .btn-group {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -255,67 +238,67 @@
     <div class="app-container">
 
         <div class="form-card">
-            <h2><i class="fas fa-pen-fancy"></i> Daily Report Editor</h2>
+            <h2><i class="fas fa-pen-fancy"></i> Daily Report Editor <span class="auto-indicator"><i class="fas fa-sync-alt fa-fw fa-spin"></i> Auto-generate</span></h2>
             <form id="reportForm">
 
                 <div class="field-group">
                     <label><i class="far fa-calendar-alt"></i> Date</label>
-                    <input type="text" id="dateInput" placeholder="e.g. 23-07-2026" />
+                    <input type="text" id="dateInput" />
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-hard-hat"></i> Greeting</label>
-                    <input type="text" id="greetingInput" placeholder="e.g. Good Morning Sir" />
+                    <div class="fixed-label"><i class="fas fa-check-circle" style="color:#2a7f6e;margin-right:8px;"></i>Good Morning Sir (fixed)</div>
                 </div>
 
                 <!-- Mine Ops: only numbers -->
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-oil-can"></i> Compressors</label>
-                        <input type="text" id="compressors" placeholder="e.g. 10" />
+                        <input type="text" id="compressors" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-bolt"></i> Holes</label>
-                        <input type="text" id="holes" placeholder="e.g. 713" />
+                        <input type="text" id="holes" />
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-ruler"></i> Feetage</label>
-                        <input type="text" id="feetage" placeholder="e.g. 3891" />
+                        <input type="text" id="feetage" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-weight-hanging"></i> Production FTD</label>
-                        <input type="text" id="prodFtd" placeholder="e.g. 3113" />
+                        <input type="text" id="prodFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-chart-line"></i> Production MTD</label>
-                    <input type="text" id="prodMtd" placeholder="e.g. 20096" />
+                    <input type="text" id="prodMtd" />
                     <div class="unit-hint">MT</div>
                 </div>
 
                 <!-- Today planning -->
                 <div class="field-group">
                     <label><i class="fas fa-clipboard-list"></i> Today Planning (next day)</label>
-                    <input type="text" id="todayPlan" placeholder="Compressors : 08 Nos · Holes : 480 · Feetage : 2600" />
+                    <input type="text" id="todayPlan" />
                 </div>
 
                 <!-- Boulders -->
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-truck-loading"></i> Boulders Trips</label>
-                        <input type="text" id="boulderTrips" placeholder="e.g. 59" />
+                        <input type="text" id="boulderTrips" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-weight-hanging"></i> Boulders FTD</label>
-                        <input type="text" id="boulderFtd" placeholder="e.g. 1347" />
+                        <input type="text" id="boulderFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-calendar-alt"></i> Boulders MTD</label>
-                    <input type="text" id="boulderMtd" placeholder="e.g. 27973" />
+                    <input type="text" id="boulderMtd" />
                     <div class="unit-hint">MT</div>
                 </div>
 
@@ -323,23 +306,23 @@
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-industry"></i> Plant Trips FTD</label>
-                        <input type="text" id="plantTripsFtd" placeholder="e.g. 67" />
+                        <input type="text" id="plantTripsFtd" />
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-industry"></i> Plant FTD</label>
-                        <input type="text" id="plantFtd" placeholder="e.g. 1565" />
+                        <input type="text" id="plantFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-industry"></i> Plant MTD</label>
-                        <input type="text" id="plantMtd" placeholder="e.g. 28300" />
+                        <input type="text" id="plantMtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-tachometer-alt"></i> TPH</label>
-                        <input type="text" id="plantTph" placeholder="e.g. 170" />
+                        <input type="text" id="plantTph" />
                     </div>
                 </div>
 
@@ -347,12 +330,12 @@
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-shipping-fast"></i> Dispatch FTD</label>
-                        <input type="text" id="dispatchFtd" placeholder="e.g. 45" />
+                        <input type="text" id="dispatchFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-shipping-fast"></i> Dispatch MTD</label>
-                        <input type="text" id="dispatchMtd" placeholder="e.g. 16524" />
+                        <input type="text" id="dispatchMtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
@@ -361,24 +344,24 @@
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-coins"></i> Basic FTD</label>
-                        <input type="text" id="basicFtd" placeholder="e.g. .03" />
+                        <input type="text" id="basicFtd" />
                         <div class="unit-hint">L</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-coins"></i> Basic MTD</label>
-                        <input type="text" id="basicMtd" placeholder="e.g. 66.6" />
+                        <input type="text" id="basicMtd" />
                         <div class="unit-hint">L</div>
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-money-bill-wave"></i> Total FTD</label>
-                        <input type="text" id="totalFtd" placeholder="e.g. .03" />
+                        <input type="text" id="totalFtd" />
                         <div class="unit-hint">L</div>
                     </div>
                     <div class="field-group">
                         <label><i class="fas fa-money-bill-wave"></i> Total MTD</label>
-                        <input type="text" id="totalMtd" placeholder="e.g. 107.4" />
+                        <input type="text" id="totalMtd" />
                         <div class="unit-hint">L</div>
                     </div>
                 </div>
@@ -386,42 +369,48 @@
                 <!-- Royalty -->
                 <div class="field-group">
                     <label><i class="fas fa-gavel"></i> Royalty</label>
-                    <input type="text" id="royalty" placeholder="e.g. -33097" />
+                    <input type="text" id="royalty" />
                     <div class="unit-hint">MT</div>
                 </div>
 
                 <!-- Remarks -->
                 <div class="field-group">
                     <label><i class="fas fa-comment-dots"></i> Remarks</label>
-                    <textarea id="remarksInput" rows="2" placeholder="Enter your remarks here..."></textarea>
+                    <textarea id="remarksInput" rows="2"></textarea>
                 </div>
 
-                <div class="btn-group">
-                    <button type="button" class="btn-generate" id="generateBtn"><i class="fas fa-sync-alt"></i> Generate Preview</button>
-                    <button type="button" class="clear-btn" id="clearBtn"><i class="fas fa-eraser"></i> Clear All</button>
-                </div>
+                <button type="button" class="clear-btn" id="clearBtn"><i class="fas fa-eraser"></i> Clear All Fields</button>
             </form>
         </div>
 
         <div class="preview-card">
             <div class="preview-header">
-                <span><i class="fab fa-whatsapp"></i> WhatsApp Preview</span>
+                <span><i class="fab fa-whatsapp"></i> WhatsApp Preview <small style="background:#e8f5f0;color:#2a7f6e;"><i class="fas fa-sync-alt fa-fw fa-spin"></i> live</small></span>
                 <small><i class="far fa-copy"></i> copy & paste</small>
             </div>
             <div class="whatsapp-msg" id="whatsappPreview">
-                <div class="empty-state">Fill in the fields and click "Generate Preview"</div>
+                <div class="empty-state">Start typing in the fields → preview updates instantly</div>
             </div>
             <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
-            <div class="footer-hint"><i class="fas fa-edit"></i> all fields start empty — fill & generate</div>
+            <div class="footer-hint"><i class="fas fa-bolt"></i> auto-generates as you type — "Good Morning Sir" is fixed</div>
         </div>
     </div>
 
     <script>
         (function() {
-            const generateBtn = document.getElementById('generateBtn');
-            const clearBtn = document.getElementById('clearBtn');
             const previewDiv = document.getElementById('whatsappPreview');
             const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+
+            // Set today's date
+            function setTodayDate() {
+                const today = new Date();
+                const day = String(today.getDate()).padStart(2, '0');
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const year = today.getFullYear();
+                document.getElementById('dateInput').value = `${day}-${month}-${year}`;
+            }
+            setTodayDate();
 
             function getVal(id) {
                 const el = document.getElementById(id);
@@ -430,7 +419,7 @@
 
             function buildMessage() {
                 const date = getVal('dateInput');
-                const greeting = getVal('greetingInput');
+                const greeting = 'Good Morning Sir'; // Fixed
                 const compressors = getVal('compressors');
                 const holes = getVal('holes');
                 const feetage = getVal('feetage');
@@ -453,14 +442,26 @@
                 const royalty = getVal('royalty');
                 const remarks = getVal('remarksInput');
 
-                // Check if any data is entered
-                const hasData = date || greeting || compressors || holes || feetage || prodFtd || prodMtd || 
+                // Check if any data is entered (excluding date and greeting which are always there)
+                const hasData = compressors || holes || feetage || prodFtd || prodMtd || 
                                todayPlan || boulderTrips || bFtd || bMtd || plantTripsFtd || plantFtd || 
                                plantMtd || plantTph || dFtd || dMtd || basicFtd || basicMtd || totalFtd || 
                                totalMtd || royalty || remarks;
 
+                // Always show greeting and date even if no other data
+                let msg = '';
+
+                // Greeting and Date (always shown)
+                if (greeting) msg += `*${greeting},* \n`;
+                if (date) msg += `DATE ${date}. \n`;
+                if (greeting || date) msg += '\n';
+
                 if (!hasData) {
-                    return '<div class="empty-state">Fill in the fields and click "Generate Preview"</div>';
+                    // If no other data, show only greeting and date
+                    if (msg.trim()) {
+                        return msg.trim();
+                    }
+                    return null;
                 }
 
                 // Calculate next day for "Today planning"
@@ -513,15 +514,6 @@
                 }
 
                 // Build message with fixed units - only show fields that have values
-                let msg = '';
-
-                // Greeting and Date
-                if (greeting || date) {
-                    if (greeting) msg += `*${greeting},* \n`;
-                    if (date) msg += `DATE ${date}. \n`;
-                    msg += '\n';
-                }
-
                 // Mine Operations
                 const hasMineOps = compressors || holes || feetage || prodFtd || prodMtd;
                 if (hasMineOps) {
@@ -599,39 +591,35 @@
                     msg += `${remarks}`;
                 }
 
-                // If nothing was added, show empty state
-                if (!msg.trim()) {
-                    return '<div class="empty-state">Fill in the fields and click "Generate Preview"</div>';
-                }
-
                 return msg;
             }
 
             function updatePreview() {
                 const text = buildMessage();
-                if (text.includes('empty-state')) {
-                    previewDiv.innerHTML = text;
+                if (!text) {
+                    previewDiv.innerHTML = '<div class="empty-state">Start typing in the fields → preview updates instantly</div>';
                 } else {
                     previewDiv.textContent = text;
                 }
             }
 
-            // Generate on button click
-            generateBtn.addEventListener('click', updatePreview);
-
-            // Clear all fields
-            clearBtn.addEventListener('click', function() {
-                const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
-                inputs.forEach(inp => {
-                    inp.value = '';
-                });
-                updatePreview();
-            });
-
-            // Auto-update on input change (optional, but we'll keep it for convenience)
+            // Auto-update on any input change
             const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
             inputs.forEach(inp => {
                 inp.addEventListener('input', updatePreview);
+            });
+
+            // Clear all fields (except date and greeting which are fixed)
+            clearBtn.addEventListener('click', function() {
+                const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
+                inputs.forEach(inp => {
+                    if (inp.id !== 'dateInput') {
+                        inp.value = '';
+                    }
+                });
+                // Reset date to today
+                setTodayDate();
+                updatePreview();
             });
 
             // Copy to clipboard
@@ -676,7 +664,7 @@
                 document.body.removeChild(textarea);
             }
 
-            // Initial empty state
+            // Initial update
             updatePreview();
         })();
     </script>
