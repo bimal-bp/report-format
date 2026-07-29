@@ -95,6 +95,12 @@
             color: #1d2f3d;
             font-weight: 500;
         }
+        .field-group .date-hint {
+            font-size: 0.7rem;
+            color: #2a7f6e;
+            margin-top: 2px;
+            padding-left: 4px;
+        }
         .row2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -242,18 +248,23 @@
             <form id="reportForm">
 
                 <div class="field-group">
-                    <label><i class="far fa-calendar-alt"></i> Date</label>
+                    <label><i class="far fa-calendar-alt"></i> Date (FTD - Yesterday)</label>
                     <input type="text" id="dateInput" />
+                    <div class="date-hint"><i class="fas fa-info-circle"></i> Enter yesterday's date (e.g., 28-07-2026). Today planning will auto-show next day.</div>
                 </div>
                 <div class="field-group">
                     <label><i class="fas fa-hard-hat"></i> Greeting</label>
                     <div class="fixed-label"><i class="fas fa-check-circle" style="color:#2a7f6e;margin-right:8px;"></i>Good Morning Sir (fixed)</div>
                 </div>
 
-                <!-- Mine Ops: only numbers -->
+                <!-- Mine Ops -->
+                <div class="field-group">
+                    <label><i class="fas fa-drill"></i> Drilling Activity</label>
+                    <input type="text" id="drillingActivity" placeholder="e.g. Drilling activity done for 13 compressors" />
+                </div>
                 <div class="row2">
                     <div class="field-group">
-                        <label><i class="fas fa-oil-can"></i> Compressors</label>
+                        <label><i class="fas fa-oil-can"></i> Compressors (yesterday)</label>
                         <input type="text" id="compressors" />
                     </div>
                     <div class="field-group">
@@ -280,8 +291,9 @@
 
                 <!-- Today planning -->
                 <div class="field-group">
-                    <label><i class="fas fa-clipboard-list"></i> Today Planning (next day)</label>
-                    <input type="text" id="todayPlan" />
+                    <label><i class="fas fa-clipboard-list"></i> Today Planning (next day - auto-calculated)</label>
+                    <input type="text" id="todayPlan" placeholder="Compressors (yesterday): 13 No · Holes : 780 · Feetage : 4300" />
+                    <div class="date-hint"><i class="fas fa-arrow-right"></i> Planning date will be auto-set to day after your entered date</div>
                 </div>
 
                 <!-- Boulders -->
@@ -402,24 +414,48 @@
             const copyBtn = document.getElementById('copyBtn');
             const clearBtn = document.getElementById('clearBtn');
 
-            // Set today's date
-            function setTodayDate() {
+            // Set yesterday's date as default
+            function setDefaultDate() {
                 const today = new Date();
-                const day = String(today.getDate()).padStart(2, '0');
-                const month = String(today.getMonth() + 1).padStart(2, '0');
-                const year = today.getFullYear();
+                const yesterday = new Date(today);
+                yesterday.setDate(today.getDate() - 1);
+                const day = String(yesterday.getDate()).padStart(2, '0');
+                const month = String(yesterday.getMonth() + 1).padStart(2, '0');
+                const year = yesterday.getFullYear();
                 document.getElementById('dateInput').value = `${day}-${month}-${year}`;
             }
-            setTodayDate();
+            setDefaultDate();
 
             function getVal(id) {
                 const el = document.getElementById(id);
                 return el ? el.value.trim() : '';
             }
 
+            function getNextDay(dateStr) {
+                if (!dateStr) return '';
+                const parts = dateStr.split('-');
+                if (parts.length !== 3) return dateStr;
+                let day = parseInt(parts[0], 10);
+                let month = parseInt(parts[1], 10);
+                let year = parts[2];
+                if (isNaN(day) || isNaN(month)) return dateStr;
+                day = day + 1;
+                const daysInMonth = new Date(parseInt(year), month, 0).getDate();
+                if (day > daysInMonth) {
+                    day = 1;
+                    month++;
+                    if (month > 12) {
+                        month = 1;
+                        year = parseInt(year) + 1;
+                    }
+                }
+                return String(day).padStart(2, '0') + '-' + String(month).padStart(2, '0') + '-' + year;
+            }
+
             function buildMessage() {
                 const date = getVal('dateInput');
-                const greeting = 'Good Morning Sir'; // Fixed
+                const greeting = 'Good Morning Sir';
+                const drillingActivity = getVal('drillingActivity');
                 const compressors = getVal('compressors');
                 const holes = getVal('holes');
                 const feetage = getVal('feetage');
@@ -442,22 +478,20 @@
                 const royalty = getVal('royalty');
                 const remarks = getVal('remarksInput');
 
-                // Check if any data is entered (excluding date and greeting which are always there)
-                const hasData = compressors || holes || feetage || prodFtd || prodMtd || 
+                // Check if any data is entered
+                const hasData = drillingActivity || compressors || holes || feetage || prodFtd || prodMtd || 
                                todayPlan || boulderTrips || bFtd || bMtd || plantTripsFtd || plantFtd || 
                                plantMtd || plantTph || dFtd || dMtd || basicFtd || basicMtd || totalFtd || 
                                totalMtd || royalty || remarks;
 
-                // Always show greeting and date even if no other data
                 let msg = '';
 
-                // Greeting and Date (always shown)
+                // Always show greeting and date
                 if (greeting) msg += `*${greeting},* \n`;
                 if (date) msg += `DATE ${date}. \n`;
                 if (greeting || date) msg += '\n';
 
                 if (!hasData) {
-                    // If no other data, show only greeting and date
                     if (msg.trim()) {
                         return msg.trim();
                     }
@@ -465,26 +499,7 @@
                 }
 
                 // Calculate next day for "Today planning"
-                let nextDate = '';
-                if (date) {
-                    const parts = date.split('-');
-                    if (parts.length === 3) {
-                        let day = parseInt(parts[0], 10);
-                        let month = parseInt(parts[1], 10);
-                        let year = parts[2];
-                        if (!isNaN(day) && !isNaN(month)) {
-                            day = day + 1;
-                            if (day > 31) { day = 1;
-                                month++; }
-                            if (month > 12) { month = 1; }
-                            nextDate = String(day).padStart(2, '0') + '-' + String(month).padStart(2, '0') + '-' + year;
-                        } else {
-                            nextDate = date;
-                        }
-                    } else {
-                        nextDate = date;
-                    }
-                }
+                const nextDate = getNextDay(date);
 
                 // Parse today plan
                 let planBullets = '';
@@ -497,7 +512,7 @@
                         const c = cMatch ? cMatch[1].trim() : planParts[0];
                         const h = hMatch ? hMatch[1].trim() : planParts[1];
                         const f = fMatch ? fMatch[1].trim() : planParts[2];
-                        planBullets = `Compressors : ${c}\nHoles :  ${h}\nFeetage : ${f}`;
+                        planBullets = `Compressors (yesterday): ${c}\nHoles : ${h}\nFeetage : ${f}`;
                     } else {
                         const cMatch = todayPlan.match(/Compressors?\s*[:]\s*([^\·]+)/i);
                         const hMatch = todayPlan.match(/Holes?\s*[:]\s*([^\·]+)/i);
@@ -506,18 +521,18 @@
                         const h = hMatch ? hMatch[1].trim() : '';
                         const f = fMatch ? fMatch[1].trim() : '';
                         if (c || h || f) {
-                            planBullets = `Compressors : ${c || '___'}\nHoles :  ${h || '___'}\nFeetage : ${f || '___'}`;
+                            planBullets = `Compressors (yesterday): ${c || '___'}\nHoles : ${h || '___'}\nFeetage : ${f || '___'}`;
                         } else {
                             planBullets = todayPlan;
                         }
                     }
                 }
 
-                // Build message with fixed units - only show fields that have values
                 // Mine Operations
-                const hasMineOps = compressors || holes || feetage || prodFtd || prodMtd;
+                const hasMineOps = drillingActivity || compressors || holes || feetage || prodFtd || prodMtd;
                 if (hasMineOps) {
                     msg += `*Mine Operations* \n`;
+                    if (drillingActivity) msg += `${drillingActivity}\n`;
                     if (compressors) msg += `Compressors : ${compressors}\n`;
                     if (holes) msg += `Holes : ${holes}\n`;
                     if (feetage) msg += `Feetage : ${feetage}\n`;
@@ -581,8 +596,7 @@
 
                 // Royalty
                 if (royalty) {
-                    msg += `*Royalty :*\n`;
-                    msg += `*${royalty} MT* \n\n`;
+                    msg += `*Royalty: ${royalty} MT* \n\n`;
                 }
 
                 // Remarks
@@ -609,7 +623,7 @@
                 inp.addEventListener('input', updatePreview);
             });
 
-            // Clear all fields (except date and greeting which are fixed)
+            // Clear all fields (except date)
             clearBtn.addEventListener('click', function() {
                 const inputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
                 inputs.forEach(inp => {
@@ -617,15 +631,13 @@
                         inp.value = '';
                     }
                 });
-                // Reset date to today
-                setTodayDate();
+                setDefaultDate();
                 updatePreview();
             });
 
             // Copy to clipboard
             copyBtn.addEventListener('click', function() {
                 let text = previewDiv.textContent;
-                // Check if it's the empty state message
                 if (previewDiv.querySelector('.empty-state')) {
                     text = 'Please fill in the fields first.';
                 }
@@ -664,7 +676,6 @@
                 document.body.removeChild(textarea);
             }
 
-            // Initial update
             updatePreview();
         })();
     </script>
