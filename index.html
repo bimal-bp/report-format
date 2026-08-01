@@ -147,7 +147,7 @@
             box-shadow: 0 4px 14px rgba(0,0,0,0.04);
             border: 1px solid #e2e9f2;
             font-size: 0.92rem;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #1d2f3d;
             white-space: pre-wrap;
             word-break: break-word;
@@ -163,6 +163,86 @@
             font-style: italic;
             text-align: center;
             padding: 40px 0;
+        }
+        /* Color-coded section headers */
+        .whatsapp-msg .section-mine {
+            color: #c0392b;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-planning {
+            color: #e67e22;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-boulders {
+            color: #8e44ad;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-plant {
+            color: #2980b9;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-dispatch {
+            color: #27ae60;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-revenue {
+            color: #f39c12;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-royalty {
+            color: #e74c3c;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .section-remarks {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .greeting-text {
+            color: #1a3a4a;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .whatsapp-msg .date-text {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .whatsapp-msg .highlight-mine {
+            background: #fde8e8;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .whatsapp-msg .highlight-planning {
+            background: #fef5e7;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .whatsapp-msg .highlight-boulders {
+            background: #f4ecf7;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .whatsapp-msg .highlight-plant {
+            background: #eaf2f8;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .whatsapp-msg .highlight-dispatch {
+            background: #eafaf1;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .whatsapp-msg .highlight-revenue {
+            background: #fef9e7;
+            padding: 1px 4px;
+            border-radius: 4px;
         }
         .copy-btn {
             background: #25D366;
@@ -224,6 +304,27 @@
             align-items: center;
             gap: 4px;
         }
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 4px 0;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .color-legend span {
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .color-legend .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
 
         @media (max-width: 700px) {
             .app-container {
@@ -258,6 +359,9 @@
                 </div>
 
                 <!-- Mine Ops -->
+                <div class="field-group" style="border-left: 3px solid #c0392b; padding-left: 10px;">
+                    <label style="color: #c0392b; font-weight: 600;"><i class="fas fa-hard-hat"></i> MINE OPERATIONS</label>
+                </div>
                 <div class="field-group">
                     <label><i class="fas fa-drill"></i> Drilling Activity</label>
                     <input type="text" id="drillingActivity" placeholder="e.g. Drilling activity done for 13 compressors" />
@@ -290,45 +394,54 @@
                 </div>
 
                 <!-- Today planning -->
+                <div class="field-group" style="border-left: 3px solid #e67e22; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #e67e22; font-weight: 600;"><i class="fas fa-clipboard-list"></i> TODAY PLANNING</label>
+                </div>
                 <div class="field-group">
-                    <label><i class="fas fa-clipboard-list"></i> Today Planning (next day - auto-calculated)</label>
+                    <label><i class="fas fa-calendar-day"></i> Planning Details (next day - auto-calculated)</label>
                     <input type="text" id="todayPlan" placeholder="Compressors (yesterday): 13 No · Holes : 780 · Feetage : 4300" />
                     <div class="date-hint"><i class="fas fa-arrow-right"></i> Planning date will be auto-set to day after your entered date</div>
                 </div>
 
                 <!-- Boulders -->
+                <div class="field-group" style="border-left: 3px solid #8e44ad; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #8e44ad; font-weight: 600;"><i class="fas fa-truck-loading"></i> BOULDERS DISPATCH</label>
+                </div>
                 <div class="row2">
                     <div class="field-group">
-                        <label><i class="fas fa-truck-loading"></i> Boulders Trips</label>
+                        <label><i class="fas fa-truck"></i> Trips</label>
                         <input type="text" id="boulderTrips" />
                     </div>
                     <div class="field-group">
-                        <label><i class="fas fa-weight-hanging"></i> Boulders FTD</label>
+                        <label><i class="fas fa-weight-hanging"></i> FTD</label>
                         <input type="text" id="boulderFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="field-group">
-                    <label><i class="fas fa-calendar-alt"></i> Boulders MTD</label>
+                    <label><i class="fas fa-calendar-alt"></i> MTD</label>
                     <input type="text" id="boulderMtd" />
                     <div class="unit-hint">MT</div>
                 </div>
 
                 <!-- Plant production -->
+                <div class="field-group" style="border-left: 3px solid #2980b9; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #2980b9; font-weight: 600;"><i class="fas fa-industry"></i> PLANT PRODUCTION</label>
+                </div>
                 <div class="row2">
                     <div class="field-group">
-                        <label><i class="fas fa-industry"></i> Plant Trips FTD</label>
+                        <label><i class="fas fa-truck"></i> Trips FTD</label>
                         <input type="text" id="plantTripsFtd" />
                     </div>
                     <div class="field-group">
-                        <label><i class="fas fa-industry"></i> Plant FTD</label>
+                        <label><i class="fas fa-weight-hanging"></i> FTD</label>
                         <input type="text" id="plantFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
                 <div class="row2">
                     <div class="field-group">
-                        <label><i class="fas fa-industry"></i> Plant MTD</label>
+                        <label><i class="fas fa-calendar-alt"></i> MTD</label>
                         <input type="text" id="plantMtd" />
                         <div class="unit-hint">MT</div>
                     </div>
@@ -339,20 +452,26 @@
                 </div>
 
                 <!-- Dispatch -->
+                <div class="field-group" style="border-left: 3px solid #27ae60; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #27ae60; font-weight: 600;"><i class="fas fa-shipping-fast"></i> DISPATCH QTY</label>
+                </div>
                 <div class="row2">
                     <div class="field-group">
-                        <label><i class="fas fa-shipping-fast"></i> Dispatch FTD</label>
+                        <label><i class="fas fa-weight-hanging"></i> FTD</label>
                         <input type="text" id="dispatchFtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                     <div class="field-group">
-                        <label><i class="fas fa-shipping-fast"></i> Dispatch MTD</label>
+                        <label><i class="fas fa-calendar-alt"></i> MTD</label>
                         <input type="text" id="dispatchMtd" />
                         <div class="unit-hint">MT</div>
                     </div>
                 </div>
 
                 <!-- Revenue -->
+                <div class="field-group" style="border-left: 3px solid #f39c12; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #f39c12; font-weight: 600;"><i class="fas fa-coins"></i> REVENUE</label>
+                </div>
                 <div class="row2">
                     <div class="field-group">
                         <label><i class="fas fa-coins"></i> Basic FTD</label>
@@ -379,16 +498,20 @@
                 </div>
 
                 <!-- Royalty -->
+                <div class="field-group" style="border-left: 3px solid #e74c3c; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #e74c3c; font-weight: 600;"><i class="fas fa-gavel"></i> ROYALTY</label>
+                </div>
                 <div class="field-group">
-                    <label><i class="fas fa-gavel"></i> Royalty</label>
-                    <input type="text" id="royalty" />
+                    <input type="text" id="royalty" placeholder="e.g. 28" />
                     <div class="unit-hint">MT</div>
                 </div>
 
                 <!-- Remarks -->
+                <div class="field-group" style="border-left: 3px solid #2c3e50; padding-left: 10px; margin-top: 8px;">
+                    <label style="color: #2c3e50; font-weight: 600;"><i class="fas fa-comment-dots"></i> REMARKS</label>
+                </div>
                 <div class="field-group">
-                    <label><i class="fas fa-comment-dots"></i> Remarks</label>
-                    <textarea id="remarksInput" rows="2"></textarea>
+                    <textarea id="remarksInput" rows="2" placeholder="Enter your remarks here..."></textarea>
                 </div>
 
                 <button type="button" class="clear-btn" id="clearBtn"><i class="fas fa-eraser"></i> Clear All Fields</button>
@@ -399,6 +522,16 @@
             <div class="preview-header">
                 <span><i class="fab fa-whatsapp"></i> WhatsApp Preview <small style="background:#e8f5f0;color:#2a7f6e;"><i class="fas fa-sync-alt fa-fw fa-spin"></i> live</small></span>
                 <small><i class="far fa-copy"></i> copy & paste</small>
+            </div>
+            <div class="color-legend">
+                <span><span class="dot" style="background:#c0392b;"></span>Mine</span>
+                <span><span class="dot" style="background:#e67e22;"></span>Planning</span>
+                <span><span class="dot" style="background:#8e44ad;"></span>Boulders</span>
+                <span><span class="dot" style="background:#2980b9;"></span>Plant</span>
+                <span><span class="dot" style="background:#27ae60;"></span>Dispatch</span>
+                <span><span class="dot" style="background:#f39c12;"></span>Revenue</span>
+                <span><span class="dot" style="background:#e74c3c;"></span>Royalty</span>
+                <span><span class="dot" style="background:#2c3e50;"></span>Remarks</span>
             </div>
             <div class="whatsapp-msg" id="whatsappPreview">
                 <div class="empty-state">Start typing in the fields → preview updates instantly</div>
@@ -487,8 +620,8 @@
                 let msg = '';
 
                 // Always show greeting and date
-                if (greeting) msg += `*${greeting},* \n`;
-                if (date) msg += `DATE ${date}. \n`;
+                if (greeting) msg += `<span class="greeting-text">*${greeting},*</span> \n`;
+                if (date) msg += `<span class="date-text">DATE ${date}.</span> \n`;
                 if (greeting || date) msg += '\n';
 
                 if (!hasData) {
@@ -531,7 +664,7 @@
                 // Mine Operations
                 const hasMineOps = drillingActivity || compressors || holes || feetage || prodFtd || prodMtd;
                 if (hasMineOps) {
-                    msg += `*Mine Operations* \n`;
+                    msg += `<span class="section-mine">*MINE OPERATIONS*</span> \n`;
                     if (drillingActivity) msg += `${drillingActivity}\n`;
                     if (compressors) msg += `Compressors : ${compressors}\n`;
                     if (holes) msg += `Holes : ${holes}\n`;
@@ -543,14 +676,14 @@
 
                 // Today Planning
                 if (todayPlan && (planBullets || todayPlan)) {
-                    msg += `*Today planning* (${nextDate || '___'}) \n`;
+                    msg += `<span class="section-planning">*TODAY PLANNING* (${nextDate || '___'})</span> \n`;
                     msg += `${planBullets || todayPlan}\n\n`;
                 }
 
                 // Boulders Dispatch
                 const hasBoulders = boulderTrips || bFtd || bMtd;
                 if (hasBoulders) {
-                    msg += `*Boulders Dispatch Qty :* \n`;
+                    msg += `<span class="section-boulders">*BOULDERS DISPATCH QTY :*</span> \n`;
                     if (boulderTrips) msg += `Total Trips : ${boulderTrips}\n`;
                     if (bFtd) msg += `*FTD : ${bFtd} MT* \n`;
                     if (bMtd) msg += `*MTD : ${bMtd} MT* \n`;
@@ -560,7 +693,7 @@
                 // Plant production
                 const hasPlant = plantTripsFtd || plantFtd || plantMtd || plantTph;
                 if (hasPlant) {
-                    msg += `*Plant production :*\n`;
+                    msg += `<span class="section-plant">*PLANT PRODUCTION :*</span> \n`;
                     if (plantTripsFtd) msg += `*FTD Trips : ${plantTripsFtd}* \n`;
                     if (plantFtd) msg += `*FTD   :   ${plantFtd} MT* \n`;
                     if (plantMtd) msg += `*MTD  :   ${plantMtd} MT* \n`;
@@ -571,7 +704,7 @@
                 // Dispatch Qty
                 const hasDispatch = dFtd || dMtd;
                 if (hasDispatch) {
-                    msg += `*Dispatch Qnty :*\n`;
+                    msg += `<span class="section-dispatch">*DISPATCH QNTY :*</span> \n`;
                     if (dFtd) msg += `*FTD :  ${dFtd} MT* \n`;
                     if (dMtd) msg += `*MTD :  ${dMtd} MT*\n`;
                     msg += '\n';
@@ -581,13 +714,13 @@
                 const hasRevenue = basicFtd || basicMtd || totalFtd || totalMtd;
                 if (hasRevenue) {
                     if (basicFtd || basicMtd) {
-                        msg += `*Basic revenue :* \n`;
+                        msg += `<span class="section-revenue">*BASIC REVENUE :*</span> \n`;
                         if (basicFtd) msg += `*FTD :  ${basicFtd} L*  \n`;
                         if (basicMtd) msg += `*MTD :  ${basicMtd} L* \n`;
                         msg += '\n';
                     }
                     if (totalFtd || totalMtd) {
-                        msg += `*Total Revenue :* \n`;
+                        msg += `<span class="section-revenue">*TOTAL REVENUE :*</span> \n`;
                         if (totalFtd) msg += `*FTD :  ${totalFtd} L*\n`;
                         if (totalMtd) msg += `*MTD : ${totalMtd} L*\n`;
                         msg += '\n';
@@ -596,12 +729,12 @@
 
                 // Royalty
                 if (royalty) {
-                    msg += `*Royalty: ${royalty} MT* \n\n`;
+                    msg += `<span class="section-royalty">*ROYALTY: ${royalty} MT*</span> \n\n`;
                 }
 
                 // Remarks
                 if (remarks) {
-                    msg += `*Remarks :* \n`;
+                    msg += `<span class="section-remarks">*REMARKS :*</span> \n`;
                     msg += `${remarks}`;
                 }
 
@@ -613,7 +746,7 @@
                 if (!text) {
                     previewDiv.innerHTML = '<div class="empty-state">Start typing in the fields → preview updates instantly</div>';
                 } else {
-                    previewDiv.textContent = text;
+                    previewDiv.innerHTML = text;
                 }
             }
 
@@ -635,7 +768,7 @@
                 updatePreview();
             });
 
-            // Copy to clipboard
+            // Copy to clipboard - handle HTML content
             copyBtn.addEventListener('click', function() {
                 let text = previewDiv.textContent;
                 if (previewDiv.querySelector('.empty-state')) {
